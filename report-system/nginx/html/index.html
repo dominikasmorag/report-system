@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Report app demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+
+<h1 class="display-1 text-light"><p>Simple Report API</p></h1>
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-4">
+
+            <div class="col">
+                <div class="card px-5 py-4 h-100 text-light">
+                    <div class="row h2 pb-2">1. Ogólny opis aplikacji</div>
+                    <div class="row border-top pt-2">
+                        <p class="fs-5"> Aplikacja to system służący do zgłaszania awarii w budynkach,
+                            umożliwiający mieszkańcom szybkie przesyłanie zgłoszeń dotyczących
+                            usterek, problemów technicznych oraz uszkodzeń infrastruktury.</p>
+                        <p class="fs-5"> System pozwala administratorom na zarządzanie zgłoszeniami,
+                            monitorowanie statusu napraw oraz przypisywanie awarii do
+                            odpowiednich pracowników lub serwisów technicznych.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card px-5 py-4 h-100 text-light">
+                    <div class="row h2 pb-2"> 2. Użyte technologie</div>
+                    <ul class="pt-2 border-top">
+                        <li class="fs-5">Java 21</li>
+                        <li class="fs-5">Maven</li>
+                        <li class="fs-5">Spring Boot</li>
+                        <li class="fs-5">SpringSecurity (JWT)</li>
+                        <li class="fs-5">Docker</li>
+                        <li class="fs-5">Postrgres</li>
+                        <li class="fs-5">Nginx</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card px-5 py-4 h-100 text-light">
+                    <div class="row h2 pb-2">3. Logowanie</div>
+                    <div class="row border-top"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-5">
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+
+            <a href="login.html"
+               class="col-3 border btn btn-primary text-light d-flex align-items-center justify-content-center">Przetestuj
+                demo</a>
+        </div>
+    </div>
+
+
+</section>
+<style>
+
+    body {
+        background-color: #0f172a;
+    }
+    .card {
+        border: 1px solid #38bdf8;
+        border-radius: 20px;
+        background: #1e293b;
+
+        box-shadow:
+            0 4px 20px #38bff826;
+    }
+
+    .container {
+        max-width: 80vw;
+    }
+
+    .btn {
+        height: 60px;
+        border-radius: 12px;
+    }
+
+    .btn-primary {
+        font-size: 24px;
+        background-color: #0a6a94;
+    }
+
+    .btn-primary:hover {
+        background-color: #38bdf8;
+    }
+
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
