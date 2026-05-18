@@ -30,11 +30,12 @@ public class ReportEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    public ReportEntity(String title, String description, ReportStatus status, ReportPriority priority, LocalDateTime dateOfReport) {
+    public ReportEntity(String title, String description, ReportStatus status, ReportPriority priority, LocalDateTime dateOfReport, UserEntity user) {
         this.title = title;
         this.description = description;
         this.status = status;
         this.priority = priority;
         this.dateOfReport = dateOfReport;
+        this.user = user;
     }
 }
