@@ -114,11 +114,14 @@
                 password: password
             })
         });
-
+        if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
             window.location.href="/reports.html";
             console.log(data);
+        } else {
+            alert("Nieprawidłowy login lub hasło");
+        }
     }
 </script>
 </body>
