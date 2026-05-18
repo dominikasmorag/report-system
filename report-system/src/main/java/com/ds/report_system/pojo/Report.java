@@ -18,13 +18,15 @@ public class Report {
     private ReportStatus status;
     private ReportPriority priority;
     private LocalDateTime dateOfReport;
+    private Long userId;
 
-    public Report(String title, String description, ReportStatus status, ReportPriority priority, LocalDateTime dateOfReport) {
+    public Report(String title, String description, ReportStatus status, ReportPriority priority, LocalDateTime dateOfReport, Long userId) {
         this.title = title;
         this.description = description;
         this.status = status;
         this.priority = priority;
         this.dateOfReport = dateOfReport;
+        this.userId = userId;
     }
 
 }
