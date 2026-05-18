@@ -10,6 +10,7 @@ import com.ds.report_system.pojo.StatusCount;
 import com.ds.report_system.repository.ReportRepository;
 import com.ds.report_system.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@DependsOn("userService")
 public class ReportService {
     private final ReportRepository reportRepository;
     private final ReportMapper reportMapper;
@@ -47,7 +49,7 @@ public class ReportService {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        ReportEntity entity = reportMapper.toEntity(new Report(report.getTitle(), report.getDescription(), ReportStatus.NEW, ReportPriority.NEUTRAL, LocalDateTime.now()));
+        ReportEntity entity = reportMapper.toEntity(new Report(report.getTitle(), report.getDescription(), ReportStatus.NEW, ReportPriority.NEUTRAL, LocalDateTime.now(), userRepository.findByUsername(username).get().getId()), user);
         entity.setUser(user);
         ReportEntity saved = reportRepository.save(entity);
         return reportMapper.toDto(saved);
@@ -85,10 +87,11 @@ public class ReportService {
         }
     }
 
+
     @PostConstruct
     public void init() {
-        reportRepository.save(reportMapper.toEntity(new Report("Report1", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now())));
-        reportRepository.save(reportMapper.toEntity(new Report("Report2", "opis", ReportStatus.PENDING, ReportPriority.HIGH, LocalDateTime.now())));
-        reportRepository.save(reportMapper.toEntity(new Report("Report3", "opis", ReportStatus.PENDING, ReportPriority.HIGH, LocalDateTime.now())));
+        reportRepository.save(reportMapper.toEntity(new Report("Report1", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
+        reportRepository.save(reportMapper.toEntity(new Report("Report2", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
+        reportRepository.save(reportMapper.toEntity(new Report("Report3", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
     }
 }
