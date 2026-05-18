@@ -1,6 +1,7 @@
 package com.ds.report_system.mapper;
 
 import com.ds.report_system.entity.ReportEntity;
+import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.pojo.Report;
 import org.springframework.stereotype.Component;
 
@@ -16,17 +17,19 @@ public class ReportMapper {
                 entity.getDescription(),
                 entity.getStatus(),
                 entity.getPriority(),
-                entity.getDateOfReport()
+                entity.getDateOfReport(),
+                entity.getUser().getId()
         );
     }
 
-    public ReportEntity toEntity(Report dto) {
+    public ReportEntity toEntity(Report dto, UserEntity user) {
         return new ReportEntity(
                 dto.getTitle(),
                 dto.getDescription(),
                 dto.getStatus(),
                 dto.getPriority(),
-                dto.getDateOfReport()
+                dto.getDateOfReport(),
+                user
         );
     }
 }
