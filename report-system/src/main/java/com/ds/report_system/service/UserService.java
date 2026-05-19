@@ -1,13 +1,14 @@
 package com.ds.report_system.service;
 
 import com.ds.report_system.dto.user.Role;
+import com.ds.report_system.dto.user.UserLoginRequest;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.security.JwtService;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
 import com.ds.report_system.exceptions.user.InvalidCredentialsException;
 import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
-import com.ds.report_system.dto.user.UserRequest;
+import com.ds.report_system.dto.user.UserRegisterRequest;
 import com.ds.report_system.dto.user.UserResponse;
 import com.ds.report_system.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
@@ -26,7 +27,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponse register(UserRequest userRequest) {
+    public UserResponse register(UserRegisterRequest userRequest) {
         System.out.println("UserService register started");
         UserEntity userEntity = new UserEntity();
 
@@ -50,15 +51,15 @@ public class UserService {
         );
     }
 
-    public AuthResponse login(UserRequest userRequest) {
-        UserEntity userEntity = userRepository.findByUsername(userRequest.getUsername())
+    public AuthResponse login(UserLoginRequest userLoginRequest) {
+        UserEntity userEntity = userRepository.findByUsername(userLoginRequest.getUsername())
                 .orElseThrow(() -> new InvalidCredentialsException(("Invalid credentials")));
 
-        if(!passwordEncoder.matches(userRequest.getPassword(), userEntity.getPassword()) || !userRepository.existsByUsername(userRequest.getUsername())) {
+        if(!passwordEncoder.matches(userLoginRequest.getPassword(), userEntity.getPassword()) || !userRepository.existsByUsername(userLoginRequest.getUsername())) {
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
-        String token = jwtService.generateToken(userRequest.getUsername(), userEntity.getRole());
+        String token = jwtService.generateToken(userLoginRequest.getUsername(), userEntity.getRole());
 
         return new AuthResponse(token);
     }
