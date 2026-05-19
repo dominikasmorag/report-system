@@ -1,6 +1,6 @@
 package com.ds.report_system.security;
 
-import com.ds.report_system.pojo.Role;
+import com.ds.report_system.dto.user.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

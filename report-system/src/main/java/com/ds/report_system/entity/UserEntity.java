@@ -1,7 +1,6 @@
 package com.ds.report_system.entity;
 
-import com.ds.report_system.pojo.Role;
-import jakarta.annotation.PostConstruct;
+import com.ds.report_system.dto.user.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;

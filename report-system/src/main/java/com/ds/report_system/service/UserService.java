@@ -1,14 +1,14 @@
 package com.ds.report_system.service;
 
-import com.ds.report_system.pojo.Role;
+import com.ds.report_system.dto.user.Role;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.security.JwtService;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
 import com.ds.report_system.exceptions.user.InvalidCredentialsException;
 import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
-import com.ds.report_system.pojo.UserRequest;
-import com.ds.report_system.pojo.UserResponse;
+import com.ds.report_system.dto.user.UserRequest;
+import com.ds.report_system.dto.user.UserResponse;
 import com.ds.report_system.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;

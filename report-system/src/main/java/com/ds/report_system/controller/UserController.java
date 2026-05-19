@@ -1,7 +1,7 @@
 package com.ds.report_system.controller;
 
-import com.ds.report_system.pojo.UserRequest;
-import com.ds.report_system.pojo.UserResponse;
+import com.ds.report_system.dto.user.UserRequest;
+import com.ds.report_system.dto.user.UserResponse;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.service.UserService;
 import org.springframework.web.bind.annotation.*;

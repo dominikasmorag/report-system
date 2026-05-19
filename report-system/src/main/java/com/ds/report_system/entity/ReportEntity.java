@@ -1,9 +1,8 @@
 package com.ds.report_system.entity;
 
-import com.ds.report_system.pojo.ReportPriority;
-import com.ds.report_system.pojo.ReportStatus;
+import com.ds.report_system.dto.report.ReportPriority;
+import com.ds.report_system.dto.report.ReportStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

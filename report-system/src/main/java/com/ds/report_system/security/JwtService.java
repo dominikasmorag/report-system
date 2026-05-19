@@ -1,6 +1,6 @@
 package com.ds.report_system.security;
 
-import com.ds.report_system.pojo.Role;
+import com.ds.report_system.dto.user.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

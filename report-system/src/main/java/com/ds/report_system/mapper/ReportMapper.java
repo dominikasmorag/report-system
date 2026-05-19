@@ -2,7 +2,7 @@ package com.ds.report_system.mapper;
 
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.entity.UserEntity;
-import com.ds.report_system.pojo.Report;
+import com.ds.report_system.dto.report.Report;
 import org.springframework.stereotype.Component;
 
 @Component

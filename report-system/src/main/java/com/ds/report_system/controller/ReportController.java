@@ -1,9 +1,9 @@
 package com.ds.report_system.controller;
 
-import com.ds.report_system.pojo.Report;
-import com.ds.report_system.pojo.ReportPriority;
-import com.ds.report_system.pojo.ReportStatus;
-import com.ds.report_system.pojo.StatusCount;
+import com.ds.report_system.dto.report.Report;
+import com.ds.report_system.dto.report.ReportPriority;
+import com.ds.report_system.dto.report.ReportStatus;
+import com.ds.report_system.dto.report.StatusCount;
 import com.ds.report_system.service.ReportService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

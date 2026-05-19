@@ -1,4 +1,4 @@
-package com.ds.report_system.pojo;
+package com.ds.report_system.dto.report;
 
 public class StatusCount {
     private ReportStatus reportStatus;

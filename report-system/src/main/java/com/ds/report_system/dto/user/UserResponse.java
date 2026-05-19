@@ -1,4 +1,4 @@
-package com.ds.report_system.pojo;
+package com.ds.report_system.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

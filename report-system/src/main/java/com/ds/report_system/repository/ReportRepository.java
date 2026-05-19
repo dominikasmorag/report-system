@@ -1,9 +1,9 @@
 package com.ds.report_system.repository;
 
 import com.ds.report_system.entity.ReportEntity;
-import com.ds.report_system.pojo.ReportPriority;
-import com.ds.report_system.pojo.ReportStatus;
-import com.ds.report_system.pojo.StatusCount;
+import com.ds.report_system.dto.report.ReportPriority;
+import com.ds.report_system.dto.report.ReportStatus;
+import com.ds.report_system.dto.report.StatusCount;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

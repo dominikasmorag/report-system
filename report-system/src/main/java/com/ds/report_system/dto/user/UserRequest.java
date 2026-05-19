@@ -1,4 +1,4 @@
-package com.ds.report_system.pojo;
+package com.ds.report_system.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
