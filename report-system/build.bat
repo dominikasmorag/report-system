@@ -9,7 +9,7 @@ echo .
 echo =========================
 echo BUILDING MAVEN PROJECT
 echo =========================
-call .\mvnw clean package -DskipTests
+call .\mvnw clean package
 
 echo.
 echo =========================
