@@ -3,9 +3,8 @@ package com.ds.report_system.service;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
 import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
-import com.ds.report_system.pojo.Role;
-import com.ds.report_system.pojo.UserRequest;
-import com.ds.report_system.pojo.UserResponse;
+import com.ds.report_system.dto.user.UserRegisterRequest;
+import com.ds.report_system.dto.user.UserResponse;
 import com.ds.report_system.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +32,7 @@ public class UserServiceTest {
 
     @Test
     void shouldRegisterUser() {
-        UserRequest userRequest = new UserRequest("ania", "ania123", "ania@gmail.com");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest("ania", "ania123", "ania@gmail.com");
 
         UserEntity savedEntity = new UserEntity();
 
@@ -47,7 +46,7 @@ public class UserServiceTest {
         when(repository.save(any(UserEntity.class)))
                 .thenReturn(savedEntity);
 
-        UserResponse result = service.register(userRequest);
+        UserResponse result = service.register(userRegisterRequest);
 
         assertEquals("ania", result.getUsername());
         assertEquals("ania@gmail.com", result.getEmail());
@@ -55,25 +54,30 @@ public class UserServiceTest {
 
     @Test
     void shouldThrowEmailAlreadyExistsException() {
-        UserRequest userRequest = new UserRequest("ania", "ania123", "ania@gmail.com");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest("ania", "ania123", "ania@gmail.com");
 
         when(repository.existsByEmail("ania@gmail.com")).thenReturn(true);
 
         assertThrows(
                 EmailAlreadyExistsException.class,
-                () -> service.register(userRequest)
+                () -> service.register(userRegisterRequest)
         );
     }
 
     @Test
     void shouldThrowUserAlreadyExistsException() {
-        UserRequest userRequest = new UserRequest("ania", "ania1234", "ania@gmail.com");
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest("ania", "ania1234", "ania@gmail.com");
 
         when(repository.existsByUsername("ania")).thenReturn(true);
 
         assertThrows(
                 UsernameAlreadyExistsException.class,
-                () -> service.register(userRequest)
+                () -> service.register(userRegisterRequest)
         );
+    }
+
+    @Test
+    void shouldLoginUser() {
+        UserRegisterRequest userRequest = new UserRegisterRequest();
     }
 }
