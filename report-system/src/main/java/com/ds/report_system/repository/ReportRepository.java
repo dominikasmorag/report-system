@@ -19,7 +19,7 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
     Page<ReportEntity> findByPriority(ReportPriority priority, Pageable pageable);
 
-    @Query("SELECT new com.ds.report_system.pojo.StatusCount(r.status, COUNT(r)) FROM ReportEntity r GROUP BY r.status")
+    @Query("SELECT new com.ds.report_system.dto.report.StatusCount(r.status, COUNT(r)) FROM ReportEntity r GROUP BY r.status")
     List<StatusCount> countByStatus();
 
     Page<ReportEntity> findByUserUsername(String username, Pageable pageable);
