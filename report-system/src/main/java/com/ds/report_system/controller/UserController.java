@@ -1,6 +1,7 @@
 package com.ds.report_system.controller;
 
-import com.ds.report_system.dto.user.UserRequest;
+import com.ds.report_system.dto.user.UserLoginRequest;
+import com.ds.report_system.dto.user.UserRegisterRequest;
 import com.ds.report_system.dto.user.UserResponse;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.service.UserService;
@@ -16,14 +17,14 @@ public class UserController {
     }
 
     @PostMapping(value="/api/users/register")
-    public UserResponse register(@RequestBody UserRequest userRequest) {
+    public UserResponse register(@RequestBody UserRegisterRequest userRequest) {
         return userService.register(userRequest);
     }
 
     @PostMapping(value="/api/users/login")
-    public AuthResponse login(@RequestBody UserRequest userRequest) {
+    public AuthResponse login(@RequestBody UserLoginRequest userLoginRequest) {
         System.out.println("LOGIN ENDPOINT HIT");
-        return userService.login(userRequest);
+        return userService.login(userLoginRequest);
     }
 
     @GetMapping("/api/test")
