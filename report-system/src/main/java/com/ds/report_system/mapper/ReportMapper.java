@@ -1,5 +1,6 @@
 package com.ds.report_system.mapper;
 
+import com.ds.report_system.dto.report.UserReportResponse;
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.dto.report.Report;
@@ -30,6 +31,15 @@ public class ReportMapper {
                 dto.getPriority(),
                 dto.getDateOfReport(),
                 user
+        );
+    }
+
+    public UserReportResponse toUserReportResponse(ReportEntity reportEntity) {
+        return new UserReportResponse(
+                reportEntity.getId(),
+                reportEntity.getTitle(),
+                reportEntity.getDescription(),
+                reportEntity.getDateOfReport()
         );
     }
 }
