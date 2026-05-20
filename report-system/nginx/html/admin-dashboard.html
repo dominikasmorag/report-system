@@ -30,8 +30,10 @@
                         <th><p>Id</p></th>
                         <th><p>Tytuł</p></th>
                         <th><p>Opis</p></th>
+                        <th><p>Status</p></th>
                         <th><p>Priorytet</p></th>
                         <th><p>Id użytkownika</p></th>
+                        <th><p>Data zgłoszenia</p></th>
                     </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -147,8 +149,10 @@
             <td>${report.id}</td>
             <td>${report.title}</td>
             <td>${report.description}</td>
-            <td>${report.priority}</td>
+            <td>${report.reportStatus}</td>
+            <td>${report.reportPriority}</td>
             <td>${report.userId}</td>
+            <td>${report.createdAt}</td>
             `;
 
             tableBody.appendChild(row);
