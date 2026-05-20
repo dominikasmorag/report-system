@@ -1,7 +1,5 @@
-package com.ds.report_system.dto.user;
+package com.ds.report_system.dto.report;
 
-import com.ds.report_system.dto.report.ReportPriority;
-import com.ds.report_system.dto.report.ReportStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
