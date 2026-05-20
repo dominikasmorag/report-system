@@ -1,6 +1,7 @@
 package com.ds.report_system.service;
 
 import com.ds.report_system.dto.report.*;
+import com.ds.report_system.dto.report.AdminReportResponse;
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.mapper.ReportMapper;
@@ -52,7 +53,7 @@ public class ReportService {
         return reportMapper.toDto(saved);
     }
 
-    public Page<Report> getPage(ReportStatus status, ReportPriority priority, Pageable pageable) {
+    public Page<AdminReportResponse> getPage(ReportStatus status, ReportPriority priority, Pageable pageable) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -62,21 +63,20 @@ public class ReportService {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
         if (isAdmin) {
-            return reportRepository.findAll(pageable)
-                    .map(reportMapper::toDto);
+            return reportRepository.findAllReports(pageable);
         }
 
         if(status != null && priority != null) {
 
-            return reportRepository.findByUserUsernameAndStatusAndPriority(username, status, priority, pageable).map(reportMapper::toDto);
+            return reportRepository.findByUserUsernameAndStatusAndPriority(username, status, priority, pageable).map(reportMapper::toAdminReportResponse);
         }
 
         if (priority != null) {
-            return reportRepository.findByUserUsernameAndPriority(username, priority, pageable).map(reportMapper::toDto);
+            return reportRepository.findByUserUsernameAndPriority(username, priority, pageable).map(reportMapper::toAdminReportResponse);
         }
 
         if (status != null) {
-            return reportRepository.findByUserUsernameAndStatus(username, status, pageable).map(reportMapper::toDto);
+            return reportRepository.findByUserUsernameAndStatus(username, status, pageable).map(reportMapper::toAdminReportResponse);
         }
 
         else {
