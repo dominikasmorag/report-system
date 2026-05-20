@@ -1,5 +1,6 @@
 package com.ds.report_system.repository;
 
+import com.ds.report_system.dto.report.UserReportResponse;
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.dto.report.ReportPriority;
 import com.ds.report_system.dto.report.ReportStatus;
@@ -22,7 +23,8 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
     @Query("SELECT new com.ds.report_system.dto.report.StatusCount(r.status, COUNT(r)) FROM ReportEntity r GROUP BY r.status")
     List<StatusCount> countByStatus();
 
-    Page<ReportEntity> findByUserUsername(String username, Pageable pageable);
+    @Query("SELECT new com.ds.report_system.dto.report.UserReportResponse(r.id, r.title, r.description, r.dateOfReport) FROM ReportEntity r WHERE r.user.username = :username")
+    Page<UserReportResponse> findByUserUsername(String username, Pageable pageable);
 
     Page<ReportEntity> findByUserUsernameAndStatus(String username, ReportStatus status, Pageable pageable);
 
