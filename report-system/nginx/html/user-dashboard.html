@@ -30,8 +30,7 @@
                         <th><p>Id</p></th>
                         <th><p>Tytuł</p></th>
                         <th><p>Opis</p></th>
-                        <th><p>Priorytet</p></th>
-                        <th><p>Id użytkownika</p></th>
+                        <th><p>Data zgłoszenia</p></th>
                     </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -126,7 +125,7 @@
 <script>
     async function loadReports() {
         const token = localStorage.getItem("token");
-        const response = await fetch("/api/reports", {
+        const response = await fetch("/api/reports/my", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -147,8 +146,7 @@
             <td>${report.id}</td>
             <td>${report.title}</td>
             <td>${report.description}</td>
-            <td>${report.priority}</td>
-            <td>${report.userId}</td>
+            <td>${report.createdAt}</td>
             `;
 
             tableBody.appendChild(row);

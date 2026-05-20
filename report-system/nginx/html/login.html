@@ -31,9 +31,9 @@
                     </div>
                     <input id="login" class="form-control mb-4" type="text" placeholder="Login...">
                     <input id="password" class="form-control mb-4" type="password" placeholder="********">
-                    <a href="#" onclick="login()"
+                    <button onclick="login()"
                        class="col-8 border btn btn-primary btn-login text-light d-flex align-items-center justify-content-center m-auto">Zaloguj
-                        się</a>
+                        się</button>
                 </div>
             </div>
 
@@ -117,8 +117,11 @@
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.token);
-            window.location.href="/reports.html";
-            console.log(data);
+            if(data.role == "ADMIN") {
+                window.location.href = "/admin-dashboard.html"
+            } else {
+            window.location.href = "/user-dashboard.html";
+            }
         } else {
             alert("Nieprawidłowy login lub hasło");
         }
