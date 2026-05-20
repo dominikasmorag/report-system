@@ -47,6 +47,7 @@ public class UserService {
         return new UserResponse(
                 saved.getId(),
                 saved.getUsername(),
+                saved.getRole().name(),
                 saved.getEmail()
         );
     }
@@ -61,7 +62,7 @@ public class UserService {
 
         String token = jwtService.generateToken(userLoginRequest.getUsername(), userEntity.getRole());
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, userEntity.getRole().name());
     }
 
     @PostConstruct
@@ -71,12 +72,18 @@ public class UserService {
         String adminEmail = "admin@mail.com";
         Role adminRole = Role.ADMIN;
 
-        String userUsername = "user";
-        String userPassword = "test";
-        String userEmail = "user@mail.com";
+        String userUsername1 = "user1";
+        String userPassword1 = "test1";
+        String userEmail1 = "user1@mail.com";
         Role userRole = Role.USER;
 
+        String userUsername2 = "user2";
+        String userPassword2 = "test2";
+        String userEmail2 = "user2@mail.com";
+        Role userRole2 = Role.USER;
+
         userRepository.save(new UserEntity(adminUsername, passwordEncoder.encode(adminPassword), adminEmail, adminRole));
-        userRepository.save(new UserEntity(userUsername, passwordEncoder.encode(userPassword), userEmail, userRole));
+        userRepository.save(new UserEntity(userUsername1, passwordEncoder.encode(userPassword1), userEmail1, userRole));
+        userRepository.save(new UserEntity(userUsername2, passwordEncoder.encode(userPassword2), userEmail2, userRole2));
     }
 }

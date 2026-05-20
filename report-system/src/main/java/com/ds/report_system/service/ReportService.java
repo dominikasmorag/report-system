@@ -1,12 +1,9 @@
 package com.ds.report_system.service;
 
+import com.ds.report_system.dto.report.*;
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.mapper.ReportMapper;
-import com.ds.report_system.dto.report.Report;
-import com.ds.report_system.dto.report.ReportPriority;
-import com.ds.report_system.dto.report.ReportStatus;
-import com.ds.report_system.dto.report.StatusCount;
 import com.ds.report_system.repository.ReportRepository;
 import com.ds.report_system.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
@@ -41,7 +38,7 @@ public class ReportService {
         return reportRepository.countByStatus();
     }
 
-    public Report save(Report report) {
+    public Report save(UserReportRequest userReportRequest) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
@@ -49,7 +46,7 @@ public class ReportService {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        ReportEntity entity = reportMapper.toEntity(new Report(report.getTitle(), report.getDescription(), ReportStatus.NEW, ReportPriority.NEUTRAL, LocalDateTime.now(), userRepository.findByUsername(username).get().getId()), user);
+        ReportEntity entity = reportMapper.toEntity(new Report(userReportRequest.getTitle(), userReportRequest.getDescription(), ReportStatus.NEW, ReportPriority.NEUTRAL, LocalDateTime.now(), userRepository.findByUsername(username).get().getId()), user);
         entity.setUser(user);
         ReportEntity saved = reportRepository.save(entity);
         return reportMapper.toDto(saved);
@@ -83,8 +80,15 @@ public class ReportService {
         }
 
         else {
-            return reportRepository.findByUserUsername(username, pageable).map(reportMapper::toDto);
+            throw new RuntimeException("Not allowed!");
         }
+
+    }
+
+    public Page<UserReportResponse> getUserPage(Pageable pageable) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return reportRepository.findByUserUsername(username, pageable);
     }
 
 
@@ -93,5 +97,7 @@ public class ReportService {
         reportRepository.save(reportMapper.toEntity(new Report("Report1", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
         reportRepository.save(reportMapper.toEntity(new Report("Report2", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
         reportRepository.save(reportMapper.toEntity(new Report("Report3", "opis", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("admin").get().getId()), userRepository.findByUsername("admin").orElseThrow()));
+        reportRepository.save(reportMapper.toEntity(new Report("ReportUser1", "opisd asdas dasfdsgsd g", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("user1").get().getId()), userRepository.findByUsername("user1").orElseThrow()));
+        reportRepository.save(reportMapper.toEntity(new Report("ReportUser2", "opidf sdf sdgdsfsd gs fdss", ReportStatus.NEW, ReportPriority.HIGH, LocalDateTime.now(), userRepository.findByUsername("user2").get().getId()), userRepository.findByUsername("user2").orElseThrow()));
     }
 }
