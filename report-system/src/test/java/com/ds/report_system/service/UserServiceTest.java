@@ -1,5 +1,6 @@
 package com.ds.report_system.service;
 
+import com.ds.report_system.dto.user.Role;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
 import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
@@ -39,6 +40,7 @@ public class UserServiceTest {
         savedEntity.setId(1L);
         savedEntity.setUsername("ania");
         savedEntity.setEmail("ania@gmail.com");
+        savedEntity.setRole(Role.USER);
 
         when(passwordEncoder.encode("ania123"))
                 .thenReturn("encodedPassword");
