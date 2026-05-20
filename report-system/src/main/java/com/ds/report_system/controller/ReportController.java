@@ -1,14 +1,12 @@
 package com.ds.report_system.controller;
 
-import com.ds.report_system.dto.report.Report;
-import com.ds.report_system.dto.report.ReportPriority;
-import com.ds.report_system.dto.report.ReportStatus;
-import com.ds.report_system.dto.report.StatusCount;
+import com.ds.report_system.dto.report.*;
 import com.ds.report_system.service.ReportService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +36,11 @@ public class ReportController {
         return reportService.getPage(status, priority, pageable);
     }
 
+    @GetMapping(value = "/api/reports/my")
+    public Page<UserReportResponse> getPage(Authentication auth, Pageable pageable) {
+        return reportService.getUserPage(pageable);
+    }
+
     /**
      * Returns one report by id
      * @param id required
@@ -55,8 +58,8 @@ public class ReportController {
     }
 
     @PostMapping("/api/reports")
-    public Report create(@Valid @RequestBody Report report) {
-        return reportService.save(report);
+    public Report create(@Valid @RequestBody UserReportRequest userReportRequest) {
+        return reportService.save(userReportRequest);
     }
 
 }
