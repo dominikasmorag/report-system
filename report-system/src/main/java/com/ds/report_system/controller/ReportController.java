@@ -1,6 +1,7 @@
 package com.ds.report_system.controller;
 
 import com.ds.report_system.dto.report.*;
+import com.ds.report_system.dto.report.AdminReportResponse;
 import com.ds.report_system.service.ReportService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class ReportController {
      * @return page of reports
      */
     @GetMapping(value = "/api/reports")
-    public Page<Report> getPage(
+    public Page<AdminReportResponse> getPage(
             @RequestParam(required = false) ReportStatus status,
             @RequestParam(required = false) ReportPriority priority,
             Pageable pageable) {
