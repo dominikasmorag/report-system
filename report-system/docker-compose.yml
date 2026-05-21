@@ -17,7 +17,8 @@ services:
     ports:
       - "5432:5432"
   app:
-    build: .
+    image: spring-app
+    container_name: application
     depends_on:
       - db
     expose:
