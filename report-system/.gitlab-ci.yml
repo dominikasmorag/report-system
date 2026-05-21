@@ -6,6 +6,6 @@ stages:
 build:
   stage: build
   script:
-    - ./mvnw clean package
+    - mvn clean package
     - pwd
     - ls -la
