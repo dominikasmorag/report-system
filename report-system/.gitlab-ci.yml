@@ -2,3 +2,4 @@ test:
   script:
     - echo "hello pipeline"
     - echo "Test"
+    - echo "test 3"
