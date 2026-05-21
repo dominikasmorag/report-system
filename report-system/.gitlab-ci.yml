@@ -18,6 +18,9 @@ build_jar:
     - cd report-system
   script:
     - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - report-system/target/*.jar
 
 build_image:
   image: docker:24.0.5
