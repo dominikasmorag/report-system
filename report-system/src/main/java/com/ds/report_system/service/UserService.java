@@ -2,6 +2,8 @@ package com.ds.report_system.service;
 
 import com.ds.report_system.dto.user.Role;
 import com.ds.report_system.dto.user.UserLoginRequest;
+import com.ds.report_system.exceptions.user.UserNotFoundException;
+import com.ds.report_system.mapper.UserMapper;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.security.JwtService;
 import com.ds.report_system.entity.UserEntity;
@@ -20,11 +22,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper mapper;
 
-    public UserService(UserRepository userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, JwtService jwtService, PasswordEncoder passwordEncoder, UserMapper mapper) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
+        this.mapper = mapper;
     }
 
     public UserResponse register(UserRegisterRequest userRequest) {
@@ -63,6 +67,10 @@ public class UserService {
         String token = jwtService.generateToken(userLoginRequest.getUsername(), userEntity.getRole());
 
         return new AuthResponse(token, userEntity.getRole().name());
+    }
+
+    public UserResponse findById(Long id) {
+        return mapper.toDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found")));
     }
 
     @PostConstruct
