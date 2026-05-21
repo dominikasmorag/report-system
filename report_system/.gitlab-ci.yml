@@ -1,4 +1,0 @@
-test:
-  script:
-    - echo "hello pipeline"
-    - echo "Test"
