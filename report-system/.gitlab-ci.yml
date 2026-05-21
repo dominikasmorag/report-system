@@ -1,5 +1,8 @@
-test:
+stages:
+  - build
+
+build:
   script:
-    - echo "hello pipeline"
-    - echo "Test"
-    - echo "test 3"
+    - ./mvnw clean package
+    - pwd
+    - ls -la
