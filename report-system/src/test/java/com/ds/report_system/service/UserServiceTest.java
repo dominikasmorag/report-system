@@ -5,6 +5,7 @@ import com.ds.report_system.dto.user.UserLoginRequest;
 import com.ds.report_system.entity.UserEntity;
 import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
 import com.ds.report_system.exceptions.user.InvalidCredentialsException;
+import com.ds.report_system.exceptions.user.UserNotFoundException;
 import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
 import com.ds.report_system.dto.user.UserRegisterRequest;
 import com.ds.report_system.dto.user.UserResponse;
@@ -149,6 +150,16 @@ public class UserServiceTest {
         assertThrows(
                 InvalidCredentialsException.class,
                 () -> service.login(request)
+        );
+    }
+
+    @Test
+    void shouldThrowUserNotFoundExceptionWhenIdDoesNotExist() {
+        when(repository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(
+                UserNotFoundException.class,
+                () -> service.findById(1L)
         );
     }
 }
