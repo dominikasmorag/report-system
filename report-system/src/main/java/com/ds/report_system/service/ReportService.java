@@ -4,6 +4,7 @@ import com.ds.report_system.dto.report.*;
 import com.ds.report_system.dto.report.AdminReportResponse;
 import com.ds.report_system.entity.ReportEntity;
 import com.ds.report_system.entity.UserEntity;
+import com.ds.report_system.exceptions.report.ReportNotFoundException;
 import com.ds.report_system.mapper.ReportMapper;
 import com.ds.report_system.repository.ReportRepository;
 import com.ds.report_system.repository.UserRepository;
@@ -32,7 +33,7 @@ public class ReportService {
     }
 
     public Report findById(Long id) {
-        return reportMapper.toDto(reportRepository.findById(id).orElseThrow(() -> new RuntimeException("Report not found")));
+        return reportMapper.toDto(reportRepository.findById(id).orElseThrow(() -> new ReportNotFoundException("Report not foun/mai")));
     }
 
     public List<StatusCount> countByStatus() {
