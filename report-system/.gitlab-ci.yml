@@ -6,4 +6,5 @@ stages:
 build_app:
   stage: build
   script:
+    - chmod +x mvnw
     - ./mvnw clean package
