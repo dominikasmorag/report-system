@@ -27,6 +27,11 @@ public class UserController {
         return userService.login(userLoginRequest);
     }
 
+    @GetMapping(value="/api/users/{id}")
+    public UserResponse findById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
     @GetMapping("/api/test")
     public String test() {
         return "test ok";
