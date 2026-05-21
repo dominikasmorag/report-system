@@ -15,4 +15,10 @@ echo.
 echo =========================
 echo STARTING DOCKER COMPOSE
 echo =========================
+docker build -t spring-app .
+
+echo.
+echo =========================
+echo STARTING DOCKER COMPOSE
+echo =========================
 docker compose up -d --build
