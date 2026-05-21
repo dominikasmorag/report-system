@@ -1,12 +1,30 @@
 image: maven:3.9.6-eclipse-temurin-21
 
 stages:
+  - test
   - build
+  - docker
 
-build:
-  stage: build
-  script:
+unit_tests:
+  stage: test
+  before_script:
     - cd report-system
-    - mvn clean package
-    - pwd
-    - ls -la
+  script:
+    - mvn test
+
+build_jar:
+  stage: build
+  before_script:
+    - cd report-system
+  script:
+    - mvn clean package -DskipTests
+
+build_image:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  stage: docker
+  before_script:
+    - cd report-system
+  script:
+    - docker build -t spring-app .
