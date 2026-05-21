@@ -6,6 +6,7 @@ stages:
 build:
   stage: build
   script:
+    - cd report-system
     - mvn clean package
     - pwd
     - ls -la
