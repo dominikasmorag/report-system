@@ -1,11 +1,5 @@
 image: maven:3.9.6-eclipse-temurin-21
 
-stages:
-  - build
-
-build_app:
-  stage: build
+test:
   script:
-    - chmod +x mvnw
-    - ./mvnw clean package
-    - echo "pipeline test"
+    - echo "hello pipeline"
