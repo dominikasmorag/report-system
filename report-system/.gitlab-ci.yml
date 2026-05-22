@@ -64,6 +64,7 @@ build_app_image:
     - echo "$GITLAB_OIDC_TOKEN" > /tmp/gitlab_token
     - gcloud iam workload-identity-pools create-cred-config projects/200923071624/locations/global/workloadIdentityPools/gitlab-pool/providers/gitlab --service-account=gitlab-ci@project-d22036bc-1bd7-43bf-a55.iam.gserviceaccount.com --credential-source-file=/tmp/gitlab_token --output-file=/tmp/creds.json
     - gcloud auth login --cred-file=/tmp/creds.json
+    - gcloud config set project project-d22036bc-1bd7-43bf-a55
     - gcloud auth configure-docker europe-west2-docker.pkg.dev --quiet
     - cd report-system
     - docker build -t europe-west2-docker.pkg.dev/project-d22036bc-1bd7-43bf-a55/report-system-ar-repo/backend:latest .
