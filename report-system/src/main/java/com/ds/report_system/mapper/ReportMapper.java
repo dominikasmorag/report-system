@@ -51,7 +51,7 @@ public class ReportMapper {
                 reportEntity.getDescription(),
                 reportEntity.getStatus(),
                 reportEntity.getPriority(),
-                reportEntity.getUser().getId(),
+                reportEntity.getUser().getUsername(),
                 reportEntity.getDateOfReport()
         );
     }

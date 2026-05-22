@@ -1,14 +1,8 @@
 package com.ds.report_system.service;
 
-import com.ds.report_system.dto.user.Role;
-import com.ds.report_system.dto.user.UserLoginRequest;
+import com.ds.report_system.dto.user.*;
 import com.ds.report_system.entity.UserEntity;
-import com.ds.report_system.exceptions.user.EmailAlreadyExistsException;
-import com.ds.report_system.exceptions.user.InvalidCredentialsException;
-import com.ds.report_system.exceptions.user.UserNotFoundException;
-import com.ds.report_system.exceptions.user.UsernameAlreadyExistsException;
-import com.ds.report_system.dto.user.UserRegisterRequest;
-import com.ds.report_system.dto.user.UserResponse;
+import com.ds.report_system.exceptions.user.*;
 import com.ds.report_system.repository.UserRepository;
 import com.ds.report_system.security.AuthResponse;
 import com.ds.report_system.security.JwtService;

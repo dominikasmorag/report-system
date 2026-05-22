@@ -18,6 +18,6 @@ public class AdminReportResponse {
     private String description;
     private ReportStatus reportStatus;
     private ReportPriority reportPriority;
-    private Long userId;
+    private String username;
     private LocalDateTime createdAt;
 }

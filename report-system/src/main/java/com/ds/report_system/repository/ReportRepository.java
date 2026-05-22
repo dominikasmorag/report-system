@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
-    @Query("SELECT new com.ds.report_system.dto.report.AdminReportResponse(r.id, r.title, r.description, r.status, r.priority, r.user.id, r.dateOfReport) FROM ReportEntity r")
+    @Query("SELECT new com.ds.report_system.dto.report.AdminReportResponse(r.id, r.title, r.description, r.status, r.priority, r.user.username, r.dateOfReport) FROM ReportEntity r")
     Page<AdminReportResponse> findAllReports(Pageable pageable);
 
     Page<ReportEntity> findByStatus(ReportStatus status, Pageable pageable);
