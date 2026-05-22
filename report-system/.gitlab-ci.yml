@@ -80,12 +80,23 @@ build_app_image:
     - docker push ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GAR_REPOSITORY}/backend:latest
 
 build_nginx_image:
-  image: docker:24.0.5
+  image: google/cloud-sdk:slim
+
   services:
     - docker:24.0.5-dind
+
   stage: docker-build-nginx
+
   before_script:
-    - cd report-system/nginx
+    - apt-get update
+    - apt install -y docker.io
+
   script:
-    - docker build -t nginx-image .
-    - echo sth
+    - echo "$GITLAB_OIDC_TOKEN" > /tmp/gitlab_token
+    - gcloud iam workload-identity-pools create-cred-config ${WIF_PROVIDER} --service-account=${GCP_SERVICE_ACCOUNT} --credential-source-file=/tmp/gitlab_token --output-file=/tmp/creds.json
+    - gcloud auth login --cred-file=/tmp/creds.json
+    - gcloud config set project ${GCP_PROJECT_ID}
+    - gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev --quiet
+    - cd report-system/nginx
+    - docker build -t ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GAR_REPOSITORY}/nginx:latest .
+    - docker push ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GAR_REPOSITORY}/nginx:latest
