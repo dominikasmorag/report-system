@@ -2,8 +2,9 @@ image: maven:3.9.6-eclipse-temurin-21
 
 stages:
   - test
-  - build
-  - docker
+  - build-jar
+  - docker-build-nginx
+  - docker-build-app
 
 unit_tests:
   stage: test
@@ -13,7 +14,7 @@ unit_tests:
     - mvn test
 
 build_jar:
-  stage: build
+  stage: build-jar
   before_script:
     - cd report-system
   script:
@@ -22,12 +23,22 @@ build_jar:
     paths:
       - report-system/target/*.jar
 
-build_image:
+build_app_image:
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
-  stage: docker
+  stage: docker-build-app
   before_script:
     - cd report-system
   script:
     - docker build -t spring-app .
+
+build_nginx_image:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  stage: docker-build-nginx
+  before_script:
+    - cd report-system/nginx
+  script:
+    - docker build -t nginx-image .
