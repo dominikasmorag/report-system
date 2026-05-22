@@ -16,6 +16,7 @@ unit_tests:
 build_jar:
   stage: build-jar
   before_script:
+    - echo buildddd
     - cd report-system
   script:
     - mvn clean package -DskipTests
