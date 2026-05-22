@@ -1,5 +1,15 @@
 image: maven:3.9.6-eclipse-temurin-21
 
+variables:
+  GCP_PROJECT_ID: project-d22036bc-1bd7-43bf-a55
+  GCP_PROJECT_NUMBER: "200923071624"
+  GCP_REGION: europe-west1
+  GAR_REPOSITORY: report-system-ar-repo
+  WIF_PROVIDER: projects/200923071624/locations/global/workloadIdentityPools/gitlab-pool/providers/gitlab
+  GCP_SERVICE_ACCOUNT: gitlab-ci@project-d22036bc-1bd7-43bf-a55.iam.gserviceaccount.com
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
 stages:
   - gcp-test
   - test
@@ -17,7 +27,6 @@ gcp_auth_test:
       aud: https://gitlab.com
 
   script:
-
     - echo "$GITLAB_OIDC_TOKEN" > /tmp/gitlab_token
 
     - gcloud iam workload-identity-pools create-cred-config projects/200923071624/locations/global/workloadIdentityPools/gitlab-pool/providers/gitlab --service-account=gitlab-ci@project-d22036bc-1bd7-43bf-a55.iam.gserviceaccount.com --credential-source-file=/tmp/gitlab_token --output-file=/tmp/creds.json
@@ -52,23 +61,23 @@ build_app_image:
 
   stage: docker-build-app
 
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
-
   id_tokens:
     GITLAB_OIDC_TOKEN:
       aud: https://gitlab.com
 
+  before_script:
+    - apt-get update
+    - apt-get install -y docker.io
+
   script:
     - echo "$GITLAB_OIDC_TOKEN" > /tmp/gitlab_token
-    - gcloud iam workload-identity-pools create-cred-config projects/200923071624/locations/global/workloadIdentityPools/gitlab-pool/providers/gitlab --service-account=gitlab-ci@project-d22036bc-1bd7-43bf-a55.iam.gserviceaccount.com --credential-source-file=/tmp/gitlab_token --output-file=/tmp/creds.json
+    - gcloud iam workload-identity-pools create-cred-config ${WIF_PROVIDER} --service-account=${GCP_SERVICE_ACCOUNT} --credential-source-file=/tmp/gitlab_token --output-file=/tmp/creds.json
     - gcloud auth login --cred-file=/tmp/creds.json
-    - gcloud config set project project-d22036bc-1bd7-43bf-a55
-    - gcloud auth configure-docker europe-west2-docker.pkg.dev --quiet
+    - gcloud config set project ${GCP_PROJECT_ID}
+    - gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev --quiet
     - cd report-system
-    - docker build -t europe-west2-docker.pkg.dev/project-d22036bc-1bd7-43bf-a55/report-system-ar-repo/backend:latest .
-    - docker push europe-west2-docker.pkg.dev/project-d22036bc-1bd7-43bf-a55/report-system-ar-repo/backend:latest
+    - docker build -t ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GAR_REPOSITORY}/backend:latest .
+    - docker push ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GAR_REPOSITORY}/backend:latest
 
 build_nginx_image:
   image: docker:24.0.5
