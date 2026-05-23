@@ -1,10 +1,7 @@
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx-image
     container_name: nginx_reverse_proxy
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/html:/usr/share/nginx/html
     ports:
      - "80:80"
   db:
@@ -13,11 +10,11 @@ services:
     environment:
       POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      POSTGRES_DB: testdb
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
   app:
-    image: spring-app
+    image: backend-image
     container_name: application
     depends_on:
       - db
